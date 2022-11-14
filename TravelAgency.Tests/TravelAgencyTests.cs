@@ -44,7 +44,26 @@ namespace TravelAgency.Tests
         }
 
         [Fact]
-        public void Return_List_Of_Tpavel_Types()
+        public void Add_Travel_Type_Return_List_Of_Tpavel_Types()
+        {
+            //Arrange
+            var Agency = new TravelAgency();
+            Agency.AddTravelType("Family");
+            Agency.AddTravelType("Extreme");
+            Agency.AddTravelType("Healthy");
+            //Act
+            List<string> expected = new List<string>
+            {
+            "Family",
+            "Extreme",
+            "Healthy",
+            };
+            //Assert
+            Assert.Equal(expected, Agency.GetTravelType());
+        }
+
+        [Fact]
+        public void Add_Travel_Types_List_Return_List_Of_Tpavel_Types()
         {
             //Arrange
             var Agency = new TravelAgency();
@@ -55,6 +74,7 @@ namespace TravelAgency.Tests
             "Extreme",
             "Healthy",
             };
+            Agency.AddTravelType(expected);
             //Assert
             Assert.Equal(expected, Agency.GetTravelType());
         }

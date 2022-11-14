@@ -30,5 +30,15 @@ namespace TravelAgency
         {
             return TravelType;
         }
+
+        public void AddTravelType(string travel_types)
+        {
+            TravelType.Add(travel_types);
+        }
+
+        public void AddTravelType(List<string> travel_types)
+        {
+            TravelType.AddRange(travel_types);
+        }
     }
 }
