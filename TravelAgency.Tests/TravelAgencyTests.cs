@@ -42,5 +42,21 @@ namespace TravelAgency.Tests
             //Assert
             Assert.Equal(expected, Agency.GetCountries());
         }
+
+        [Fact]
+        public void Return_List_Of_Tpavel_Types()
+        {
+            //Arrange
+            var Agency = new TravelAgency();
+            //Act
+            List<string> expected = new List<string>
+            {
+            "Family",
+            "Extreme",
+            "Healthy",
+            };
+            //Assert
+            Assert.Equal(expected, Agency.GetTravelType());
+        }
     }
 }

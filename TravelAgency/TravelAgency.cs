@@ -9,6 +9,7 @@ namespace TravelAgency
     public class TravelAgency
     {
         public List<string> Countries = new List<string>();
+        public List<string> TravelType = new List<string>();
 
         public void AddCountry(string country)
         {
@@ -23,6 +24,11 @@ namespace TravelAgency
         public List<string> GetCountries()
         {
             return Countries;
+        }
+
+        public List<string> GetTravelType()
+        {
+            return TravelType;
         }
     }
 }
