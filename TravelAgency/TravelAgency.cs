@@ -12,7 +12,12 @@ namespace TravelAgency
 
         public void AddCountry(string country)
         {
+            Countries.Add(country);
+        }
 
+        public void AddCountry(List<string> countries)
+        {
+            Countries.AddRange(countries);
         }
 
         public List<string> GetCountries()
