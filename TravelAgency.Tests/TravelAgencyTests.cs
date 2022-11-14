@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Xunit;
 
 namespace TravelAgency.Tests
@@ -77,6 +78,28 @@ namespace TravelAgency.Tests
             Agency.AddTravelType(expected);
             //Assert
             Assert.Equal(expected, Agency.GetTravelType());
+        }
+
+        [Fact]
+        public void SortTravel()
+        {
+            //Arrange
+            Hotel hotel1 = new Hotel(1501, "test", "alabama");
+            Hotel hotel2 = new Hotel(1500, "test", "alabama");
+            Hotel hotel3 = new Hotel(1499, "test", "alabama");
+            List<Trip> Travels = new List<Trip>
+            {
+            new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10)),
+            new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
+            new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10))
+            };
+
+            //Act
+            TravelAgency agency = new TravelAgency();
+            var act = agency.SortHotelsForPrice();
+            //Assert
+            Assert.Equal(Travels, act);
+
         }
     }
 }

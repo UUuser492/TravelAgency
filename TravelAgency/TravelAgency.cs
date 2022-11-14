@@ -40,5 +40,10 @@ namespace TravelAgency
         {
             TravelType.AddRange(travel_types);
         }
+
+        public object SortHotelsForPrice()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
