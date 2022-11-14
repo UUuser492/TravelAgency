@@ -87,18 +87,22 @@ namespace TravelAgency.Tests
             Hotel hotel1 = new Hotel(1501, "test", "alabama");
             Hotel hotel2 = new Hotel(1500, "test", "alabama");
             Hotel hotel3 = new Hotel(1499, "test", "alabama");
-            List<Trip> Travels = new List<Trip>
+            List<Trip> expected = new List<Trip>
             {
-            new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-            new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-            new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10))
+                new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10)),
+                new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
+                new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10))
             };
 
             //Act
             TravelAgency agency = new TravelAgency();
+            agency.AddTravels(expected[0]);
+            agency.AddTravels(expected[1]);
+            agency.AddTravels(expected[2]);
             var act = agency.SortHotelsForPrice();
+
             //Assert
-            Assert.Equal(Travels, act);
+            Assert.Equal(expected, act);
 
         }
 
@@ -118,21 +122,24 @@ namespace TravelAgency.Tests
             Assert.Equal(expected, act);
         }
 
-        [Fact]
-        public void FindTravelUsingAllParameters_ReturnListOfTrips()
-        {
-            //Arrange
+        //[Fact]
+        //public void FindTravelUsingAllParameters_ReturnListOfTrips()
+        //{
+        //    //Arrange
 
-            //Act
-            TravelAgency agency = new TravelAgency();
-            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
-            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
-            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+        //    //Act
+        //    TravelAgency agency = new TravelAgency();
+        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
 
-            var travel = new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
+        //    var travel = new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
 
-            //Assert
-            Assert.Contains(travel, agency.Trips);
-        }
+        //    //Assert
+        //    Assert.Contains(travel, agency.Trips);
+        //}
+
+
+
     }
 }
