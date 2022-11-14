@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,23 @@ namespace TravelAgency
             Hotel = hotel;
             Beginning = begin;
             Ending = end;
+        }
+        
+    }
+
+    public class TravelSorts : IComparer<Trip>
+    {
+        public int Compare(Trip first, Trip second)
+        {
+            if (first.Hotel.Price > second.Hotel.Price)
+            {
+                return -1;
+            }
+            else if (first.Hotel.Price < second.Hotel.Price)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

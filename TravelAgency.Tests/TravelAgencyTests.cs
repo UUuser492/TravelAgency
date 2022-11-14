@@ -81,7 +81,7 @@ namespace TravelAgency.Tests
         }
 
         [Fact]
-        public void SortTravel()
+        public void SortTravel_ForHotelPrice_ReturnListHotel()
         {
             //Arrange
             Hotel hotel1 = new Hotel(1501, "test", "alabama");
@@ -100,6 +100,22 @@ namespace TravelAgency.Tests
             //Assert
             Assert.Equal(Travels, act);
 
+        }
+
+        [Fact]
+        public void SortTravel_ForHotelPrice_ToString()
+        {
+            //Arrange
+            string expected = "Назва готелю : alabama , ціна за день 1501 Назва готелю : alabama , ціна за день 1500 Назва готелю : alabama , ціна за день 1499 ";
+            //Act
+            TravelAgency agency = new TravelAgency();
+            agency.AddTravels(new Trip("Healthy", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+            agency.AddTravels(new Trip("Healthy", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+
+            var act = agency.SortHotelsForPriceString();
+            //Assert
+            Assert.Equal(expected, act);
         }
     }
 }
