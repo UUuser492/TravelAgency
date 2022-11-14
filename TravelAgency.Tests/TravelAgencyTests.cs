@@ -122,22 +122,23 @@ namespace TravelAgency.Tests
             Assert.Equal(expected, act);
         }
 
-        //[Fact]
-        //public void FindTravelUsingAllParameters_ReturnListOfTrips()
-        //{
-        //    //Arrange
+        [Fact]
+        public void FindTravelUsingAllParameters_ReturnListOfTrips()
+        {
+            //Arrange
+            var travel1 = new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
+            var travel2 = new Trip("Healthy", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
+            var travel3 = new Trip("Extreme", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
 
-        //    //Act
-        //    TravelAgency agency = new TravelAgency();
-        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
-        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
-        //    agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+            //Act
+            TravelAgency agency = new TravelAgency();
+            agency.AddTravels(travel1);
+            agency.AddTravels(travel2);
+            agency.AddTravels(travel3);
 
-        //    var travel = new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
-
-        //    //Assert
-        //    Assert.Contains(travel, agency.Trips);
-        //}
+            //Assert
+            Assert.Contains(travel1, agency.Trips);
+        }
 
 
 
