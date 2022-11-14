@@ -117,5 +117,22 @@ namespace TravelAgency.Tests
             //Assert
             Assert.Equal(expected, act);
         }
+
+        [Fact]
+        public void FindTravelUsingAllParameters_ReturnListOfTrips()
+        {
+            //Arrange
+
+            //Act
+            TravelAgency agency = new TravelAgency();
+            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1500, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+            agency.AddTravels(new Trip("Extreme", "England", 4, new Hotel(1499, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10)));
+
+            var travel = new Trip("Extreme", "England", 4, new Hotel(1501, "test", "alabama"), new DateTime(2020, 11, 10), new DateTime(2020, 12, 10));
+
+            //Assert
+            Assert.Contains(travel, agency.Trips);
+        }
     }
 }
