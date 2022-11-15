@@ -43,4 +43,22 @@ namespace TravelAgency
             return 0;
         }
     }
+
+    public class TravelSortsIncrease : IComparer<Trip>
+    {
+        public int Compare(Trip first, Trip second)
+        {
+            if (first.Hotel.Price > second.Hotel.Price)
+            {
+                return 1;
+            }
+            else if (first.Hotel.Price < second.Hotel.Price)
+            {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
+
 }

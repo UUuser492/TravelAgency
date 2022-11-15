@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,69 +10,86 @@ namespace TravelAgency
 {
     public class TravelAgency
     {
-        public List<string> Countries = new List<string>();
-        public List<string> TravelType = new List<string>();
+        private IGetCountries getCountries;
+        private IGetTravelTypes getTravelTypes;      
         public List<Trip> Trips = new List<Trip>();
 
-        public void AddCountry(string country)
+        public TravelAgency(IGetCountries getCountries , IGetTravelTypes getTravelTypes)
         {
-            Countries.Add(country);
-        }
-
-        public void AddCountry(List<string> countries)
-        {
-            Countries.AddRange(countries);
+            this.getCountries = getCountries;
+            this.getTravelTypes = getTravelTypes;
         }
 
         public List<string> GetCountries()
         {
-            return Countries;
+            var listOfCountries = getCountries.GetCountries();
+
+            if (listOfCountries == null || listOfCountries.Count == 0 )
+            {
+                throw new Exception();
+            }
+            else
+            {
+                return listOfCountries;
+            }            
         }
 
         public List<string> GetTravelType()
         {
-            return TravelType;
-        }
+            var listOfTravelTypes = getTravelTypes.GetTravelTypes();
 
-        public void AddTravelType(string travel_types)
-        {
-            TravelType.Add(travel_types);
-        }
-
-        public void AddTravelType(List<string> travel_types)
-        {
-            TravelType.AddRange(travel_types);
-        }
-
-        public List<Trip> SortHotelsForPrice()
-        {
-            TravelSorts sorts = new TravelSorts();
-            Trips.Sort(sorts);
-            List<Trip> TravelReturn = new List<Trip>();
-
-            for (int i = 0; i < Trips.Count; i++)
+            if (listOfTravelTypes == null || listOfTravelTypes.Count == 0)
             {
-                TravelReturn.Add(Trips[i]);
+                throw new Exception();
             }
-            return TravelReturn;
-        }
-
-        public void AddTravels(Trip trip)
-        {
-            Trips.Add(trip);
-        }
-
-        public string SortHotelsForPriceString()
-        {
-            TravelSorts sorts = new TravelSorts();
-            Trips.Sort(sorts);
-
-            string result = null;
-            for (int i = 0; i < Trips.Count; i++)
+            else
             {
-                result += $"Назва готелю : {Trips[i].Hotel.Name} , ціна за день {Trips[i].Hotel.Price} ";
+                return listOfTravelTypes;
             }
-            return result;
         }
+
+      
+        public List<Trip> SortHotelsForPrice(IComparer comparer = null)
+        {
+
+            TravelSorts sorts = new TravelSorts();
+            TravelSortsIncrease sortsAces = new TravelSortsIncrease();
+
+            if (comparer==null)
+            {
+                Trips.Sort(sorts);
+                List<Trip> TravelReturn = new List<Trip>();
+                for (int i = 0; i < Trips.Count; i++)
+                {
+                    TravelReturn.Add(Trips[i]);
+                }
+                return TravelReturn;
+            }
+            else
+            {
+                Trips.Sort(sortsAces);
+                List<Trip> TravelReturn = new List<Trip>();
+                for (int i = 0; i < Trips.Count; i++)
+                {
+                    TravelReturn.Add(Trips[i]);
+                }
+                return TravelReturn;
+            }
+          
+          
+        }
+
+        //public string SortHotelsForPriceString()
+        //{
+        //    TravelSorts sorts = new TravelSorts();
+        //    Trips.Sort(sorts);
+
+        //    string result = null;
+        //    for (int i = 0; i < Trips.Count; i++)
+        //    {
+        //        result += $"Назва готелю : {Trips[i].Hotel.Name} , ціна за день {Trips[i].Hotel.Price} ";
+        //    }
+        //    return result;
+        //}
     }
 }
