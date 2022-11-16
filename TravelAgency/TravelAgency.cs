@@ -11,15 +11,20 @@ namespace TravelAgency
     public class TravelAgency
     {
         private IGetCountries getCountries;
-        private IGetTravelTypes getTravelTypes;      
-        public List<Trip> Trips = new List<Trip>();
+        private IGetTravelTypes getTravelTypes;
+        public IGetTrips getTrips;
 
-        public TravelAgency(IGetCountries getCountries , IGetTravelTypes getTravelTypes)
+        public TravelAgency(IGetCountries getCountries , IGetTravelTypes getTravelTypes , IGetTrips getTrips)
         {
             this.getCountries = getCountries;
             this.getTravelTypes = getTravelTypes;
+            this.getTrips = getTrips;
         }
 
+        /// <summary>
+        /// Повертає список всіх країн
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetCountries()
         {
             var listOfCountries = getCountries.GetCountries();
@@ -34,6 +39,10 @@ namespace TravelAgency
             }            
         }
 
+        /// <summary>
+        /// Повертає список всіх типів подорожей
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetTravelType()
         {
             var listOfTravelTypes = getTravelTypes.GetTravelTypes();
@@ -48,48 +57,40 @@ namespace TravelAgency
             }
         }
 
-      
-        public List<Trip> SortHotelsForPrice(IComparer comparer = null)
+        /// <summary>
+        /// Повертає список всіх подорожей
+        /// </summary>
+        /// <returns></returns>
+        public List<Trip> GetTrips()
         {
+            var listOfTrips = getTrips.GetTrips();
 
-            TravelSorts sorts = new TravelSorts();
-            TravelSortsIncrease sortsAces = new TravelSortsIncrease();
-
-            if (comparer==null)
+            if (listOfTrips == null || listOfTrips.Count == 0)
             {
-                Trips.Sort(sorts);
-                List<Trip> TravelReturn = new List<Trip>();
-                for (int i = 0; i < Trips.Count; i++)
-                {
-                    TravelReturn.Add(Trips[i]);
-                }
-                return TravelReturn;
+                throw new Exception();
             }
             else
             {
-                Trips.Sort(sortsAces);
-                List<Trip> TravelReturn = new List<Trip>();
-                for (int i = 0; i < Trips.Count; i++)
-                {
-                    TravelReturn.Add(Trips[i]);
-                }
-                return TravelReturn;
+                return listOfTrips;
             }
-          
+        }
+
+        public List<Trip> Sort(IComparer<Trip> comparer)
+        {
+            var listOfTrips = getTrips.GetTrips();
+            List<Trip> TravelReturn = new List<Trip>();
+                  
+           listOfTrips.Sort(comparer);                
+           for (int i = 0; i < listOfTrips.Count; i++)
+           {
+                TravelReturn.Add(listOfTrips[i]);
+           }
+           
+            return TravelReturn;       
           
         }
 
-        //public string SortHotelsForPriceString()
-        //{
-        //    TravelSorts sorts = new TravelSorts();
-        //    Trips.Sort(sorts);
 
-        //    string result = null;
-        //    for (int i = 0; i < Trips.Count; i++)
-        //    {
-        //        result += $"Назва готелю : {Trips[i].Hotel.Name} , ціна за день {Trips[i].Hotel.Price} ";
-        //    }
-        //    return result;
-        //}
+
     }
 }

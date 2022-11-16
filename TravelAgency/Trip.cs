@@ -28,7 +28,10 @@ namespace TravelAgency
         
     }
 
-    public class TravelSorts : IComparer<Trip>
+    /// <summary>
+    /// Сортує готелі по ціні від більшого до меншого 
+    /// </summary>
+    public class TravelSortsDesc : IComparer<Trip>
     {
         public int Compare(Trip first, Trip second)
         {
@@ -44,6 +47,9 @@ namespace TravelAgency
         }
     }
 
+    /// <summary>
+    /// Сортує готелі по ціні від меншого до більшого 
+    /// </summary>
     public class TravelSortsIncrease : IComparer<Trip>
     {
         public int Compare(Trip first, Trip second)
