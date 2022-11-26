@@ -11,21 +11,27 @@ namespace TravelAgency.Tests
         [Fact]
         public void Return_List_Of_Countries()
         {
+            List<Offers> offers = new List<Offers>
+            {
+                new Offers(8, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(1,"Germany")) , new TravelTypes(1 ,"Healthy")),               
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+            };
+
             List<string> expected = new List<string>
             {
                   "Germany",
-                  "Uk",
-                  "Ukraine",
+                  "Uk",                 
             };
 
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
+            var mockOffers = new Mock<IGetOffers>();
 
-            mockCountries.Setup(p => p.GetCountries()).Returns(expected);
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
 
             //Arrange
-            var Agency = new TravelAgency(mockCountries.Object , mockTravelTypes.Object , mockTrips.Object);
+            var Agency = new TravelAgency( mockOffers.Object);
           
             //Assert
             Assert.Equal(expected, Agency.GetCountries());
@@ -34,42 +40,61 @@ namespace TravelAgency.Tests
         [Fact]
         public void Return_List_Of_Countries_False()
         {
+            List<Offers> offers = new List<Offers>
+            {
+                new Offers(8, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(1,"Germany")) , new TravelTypes(1 ,"Healthy")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Albania")), new TravelTypes(2 , "Extrem")),
+            };
+
             List<string> expected = new List<string>
             {
                   "Germany",
                   "Uk",
-                  "Ukraine",
+                  "Maldive",
+
             };
 
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
+            var mockOffers = new Mock<IGetOffers>();
+
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
 
             //Arrange
-            var Agency = new TravelAgency(mockCountries.Object , mockTravelTypes.Object , mockTrips.Object);
+            var Agency = new TravelAgency(mockOffers.Object);
 
             //Assert
-            Assert.Throws<Exception>(() => Agency.GetCountries());
+            Assert.NotEqual(expected, Agency.GetCountries());
         }
 
         [Fact]
         public void Return_List_Of_Travel_Types()
         {
+            List<Offers> offers = new List<Offers>
+            {
+                new Offers(8, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(1,"Germany")) , new TravelTypes(1 ,"Healthy")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Eazy")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+
+            };
+
             List<string> expected = new List<string>
             {
                   "Healthy",
                   "Extrem",
-                  "Eazy",
+                  "Eazy",                   
             };
 
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
+            var mockOffers = new Mock<IGetOffers>();
 
-            mockTravelTypes.Setup(p => p.GetTravelTypes()).Returns(expected);
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
 
             //Arrange
-            var Agency = new TravelAgency(mockCountries.Object, mockTravelTypes.Object , mockTrips.Object);
+            var Agency = new TravelAgency(mockOffers.Object);
 
             //Assert
             Assert.Equal(expected, Agency.GetTravelType());
@@ -78,113 +103,108 @@ namespace TravelAgency.Tests
         [Fact]
         public void Return_List_Of_Travel_Types_False()
         {
+            List<Offers> offers = new List<Offers>
+            {
+                new Offers(8, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(1,"Germany")) , new TravelTypes(1 ,"Healthy")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Germany")), new TravelTypes(2 , "Eazy")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+                new Offers(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countries(2,"Uk")), new TravelTypes(2 , "Extrem")),
+
+            };
+
             List<string> expected = new List<string>
             {
                   "Healthy",
                   "Extrem",
                   "Eazy",
+                  "Recovery"
             };
 
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
+            var mockOffers = new Mock<IGetOffers>();
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
 
             //Arrange
-            var Agency = new TravelAgency(mockCountries.Object, mockTravelTypes.Object , mockTrips.Object);
+            var Agency = new TravelAgency(mockOffers.Object);
 
             //Assert
-            Assert.Throws<Exception>(() => Agency.GetTravelType());
+            Assert.NotEqual(expected, Agency.GetTravelType());
         }
 
+        [Fact]
+        public void SortTravel_Incr_ForHotelPrice_ReturnListHotel()
+        {
+            var Offer1 = new Offers(8, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1500, "1", "Plaza", new Countries(1, "Germany")), new TravelTypes(1, "Healthy"));
+            var Offer2 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1500, "2", "Qwerty", new Countries(2, "Uk")), new TravelTypes(2, "Extrem"));
+            var Offer3 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1200, "3", "Odessa", new Countries(2, "Albania")), new TravelTypes(2, "Extrem"));
+            var Offer4 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1893, "3", "Lviv", new Countries(2, "Spain")), new TravelTypes(2, "Extrem"));
+            var Offer5 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1600, "2", "Obolon", new Countries(2, "Uk")), new TravelTypes(2, "Extrem"));
+            var Offer6 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1585, "2", "Obolon", new Countries(2, "Uk")), new TravelTypes(2, "Extrem"));
+
+            List<Offers> offers = new List<Offers>
+            {
+                Offer1,
+                Offer2,
+                Offer3,
+                Offer4,
+                Offer5,
+                Offer6
+            };
+
+            List<Offers> expected = new List<Offers>
+            {              
+                Offer2 , Offer6 , Offer5
+            };
+
+            var mockOffers = new Mock<IGetOffers>();
+
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
+
+            //Arrange
+            var Agency = new TravelAgency(mockOffers.Object);
+
+            //Assert
+            Assert.Equal(expected, Agency.FindATravel("Uk", "Extrem","2", new DateTime(2022, 1, 1) , new DateTime(2022, 1, 15) , 1800 , 100 , 5 , new OffersSortsIncrease()));
+
+        }
 
         [Fact]
         public void SortTravel_Desc_ForHotelPrice_ReturnListHotel()
         {
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
+            var Offer1 = new Offers(8, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1500, "1", "Plaza", new Countries(1, "Germany")), new TravelTypes(1, "Healthy"));
+            var Offer2 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1500, "2", "Qwerty", new Countries(2, "Uk")), new TravelTypes(2, "Extrem"));
+            var Offer3 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1200, "3", "Odessa", new Countries(2, "Albania")), new TravelTypes(2, "Extrem"));
+            var Offer4 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1893, "3", "Lviv", new Countries(2, "Spain")), new TravelTypes(2, "Extrem"));
+            var Offer5 = new Offers(5, new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1520, new Hotel(1400, "2", "Obolon", new Countries(2, "Uk")), new TravelTypes(2, "Extrem"));
 
-            //Arrange
-            Hotel hotel1 = new Hotel(1501, "test", "alabama");
-            Hotel hotel2 = new Hotel(1500, "test", "alabama");
-            Hotel hotel3 = new Hotel(1499, "test", "alabama");
-            List<Trip> expected = new List<Trip>
+
+            List<Offers> offers = new List<Offers>
             {
-                new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10))
+                Offer1,
+                Offer2,
+                Offer3,
+                Offer4,
+                Offer5
             };
 
-            //Act
+            List<Offers> expected = new List<Offers>
+            {
+                Offer2 , Offer5
+            };
 
-            mockTrips.Setup(p => p.GetTrips()).Returns(expected);
+            var mockOffers = new Mock<IGetOffers>();
 
-            TravelAgency agency = new TravelAgency(mockCountries.Object, mockTravelTypes.Object , mockTrips.Object);           
-            var act = agency.Sort(new TravelSortsDesc());
+            mockOffers.Setup(p => p.GetOffers()).Returns(offers);
+
+            //Arrange
+            var Agency = new TravelAgency(mockOffers.Object);
 
             //Assert
-            Assert.Equal(expected, act);
+            Assert.Equal(expected, Agency.FindATravel("Uk", "Extrem", "2", new DateTime(2022, 1, 1), new DateTime(2022, 1, 15), 1800, 100, 5));
 
         }
 
-        [Fact]
-        public void SortTravel_Increase_ForHotelPrice_ReturnListHotel()
-        {
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
-
-            //Arrange
-            Hotel hotel1 = new Hotel(1501, "test", "alabama");
-            Hotel hotel2 = new Hotel(1500, "test", "alabama");
-            Hotel hotel3 = new Hotel(1499, "test", "alabama");
-            List<Trip> expected = new List<Trip>
-            {
-                new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10))
-            };
-
-            //Act            
-            
-            mockTrips.Setup(p => p.GetTrips()).Returns(expected);
-
-            TravelAgency agency = new TravelAgency(mockCountries.Object, mockTravelTypes.Object, mockTrips.Object);
-            var act = agency.Sort(new TravelSortsIncrease());
-
-            //Assert
-            Assert.Equal(expected, act);
-
-        }
-
-
-        [Fact]
-        public void FindTravelUsingAllParameters_ReturnListOfTrips()
-        {
-            var mockCountries = new Mock<IGetCountries>();
-            var mockTravelTypes = new Mock<IGetTravelTypes>();
-            var mockTrips = new Mock<IGetTrips>();
-
-            //Arrange
-            Hotel hotel1 = new Hotel(1501, "test", "alabama");
-            Hotel hotel2 = new Hotel(1500, "test", "alabama");
-            Hotel hotel3 = new Hotel(1499, "test", "alabama");
-            List<Trip> expected = new List<Trip>
-            {
-                new Trip ("Extreme","England",4,hotel1,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel2,new DateTime(2020,11,10), new DateTime(2020,12,10)),
-                new Trip ("Extreme","England",4,hotel3,new DateTime(2020,11,10), new DateTime(2020,12,10))
-            };
-
-
-            //Act
-            TravelAgency agency = new TravelAgency(mockCountries.Object, mockTravelTypes.Object, mockTrips.Object);
-            mockTrips.Setup(p => p.GetTrips()).Returns(expected);
-            var listOfTrips = agency.GetTrips();
-
-            //Assert
-            Assert.Contains(expected[2], listOfTrips);
-        }
 
 
 

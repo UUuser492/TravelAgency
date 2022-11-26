@@ -9,16 +9,12 @@ using System.Threading.Tasks;
 namespace TravelAgency
 {
     public class TravelAgency
-    {
-        private IGetCountries getCountries;
-        private IGetTravelTypes getTravelTypes;
-        public IGetTrips getTrips;
+    {      
+        public IGetOffers getOffers;
 
-        public TravelAgency(IGetCountries getCountries , IGetTravelTypes getTravelTypes , IGetTrips getTrips)
-        {
-            this.getCountries = getCountries;
-            this.getTravelTypes = getTravelTypes;
-            this.getTrips = getTrips;
+        public TravelAgency(IGetOffers getOffers)
+        {           
+            this.getOffers = getOffers;
         }
 
         /// <summary>
@@ -27,14 +23,24 @@ namespace TravelAgency
         /// <returns></returns>
         public List<string> GetCountries()
         {
-            var listOfCountries = getCountries.GetCountries();
+            var listOfOffers = getOffers.GetOffers();
+            var listOfCountries = new List<string>();
 
-            if (listOfCountries == null || listOfCountries.Count == 0 )
+            if (listOfOffers == null || listOfOffers.Count == 0 )
             {
                 throw new Exception();
             }
             else
             {
+                for (int i = 0; i < listOfOffers.Count; i++)
+                {
+
+                    if (!listOfCountries.Contains(listOfOffers[i].Hotel.Countries.Name))
+                    {
+                        listOfCountries.Add(listOfOffers[i].Hotel.Countries.Name);
+                    }
+
+                }
                 return listOfCountries;
             }            
         }
@@ -45,14 +51,24 @@ namespace TravelAgency
         /// <returns></returns>
         public List<string> GetTravelType()
         {
-            var listOfTravelTypes = getTravelTypes.GetTravelTypes();
+            var listOfOffers = getOffers.GetOffers();
+            var listOfTravelTypes = new List<string>();
 
-            if (listOfTravelTypes == null || listOfTravelTypes.Count == 0)
+            if (listOfOffers == null || listOfOffers.Count == 0)
             {
                 throw new Exception();
             }
             else
             {
+                for (int i = 0; i < listOfOffers.Count; i++)
+                {                    
+
+                    if (!listOfTravelTypes.Contains(listOfOffers[i].TravelTypes.Types))
+                    {
+                        listOfTravelTypes.Add(listOfOffers[i].TravelTypes.Types);
+                    }
+
+                }
                 return listOfTravelTypes;
             }
         }
@@ -61,30 +77,62 @@ namespace TravelAgency
         /// Повертає список всіх подорожей
         /// </summary>
         /// <returns></returns>
-        public List<Trip> GetTrips()
+        public List<Offers> FindATravel(string countriesName , string travelTypes ,
+             string hotelCategory , DateTime start , DateTime end , 
+            int maxPrice = 1500 , int minPrice = 100, int numberOfPeople = 1 , IComparer<Offers> comparer = null)
         {
-            var listOfTrips = getTrips.GetTrips();
+            var listOfOffers = new List<Offers>();
+            if (comparer == null)
+            {
+                listOfOffers = Sort(new OffersSortsDesc());
+            }
+            else
+            {
+                listOfOffers = Sort(comparer);
+            }
+            
+            var returnedListOfOffers = new List<Offers>();
 
-            if (listOfTrips == null || listOfTrips.Count == 0)
+            if (listOfOffers == null || listOfOffers.Count == 0)
             {
                 throw new Exception();
             }
             else
             {
-                return listOfTrips;
+               
+
+                for (int i = 0; i < listOfOffers.Count; i++)
+                {
+                    if (listOfOffers[i].Hotel.Countries.Name == countriesName && listOfOffers[i].TravelTypes.Types == travelTypes
+                        && listOfOffers[i].Hotel.HotelCategory == hotelCategory && listOfOffers[i].Beginning == start
+                        && listOfOffers[i].Ending == end && listOfOffers[i].Price >= minPrice && listOfOffers[i].Price <= maxPrice)
+                    {
+                        returnedListOfOffers.Add(listOfOffers[i]);
+                    }
+
+                }
+
+                return returnedListOfOffers;
+
+
             }
+
+            
+
         }
 
-        public List<Trip> Sort(IComparer<Trip> comparer)
+        private List<Offers> Sort(IComparer<Offers> comparer)
         {
-            var listOfTrips = getTrips.GetTrips();
-            List<Trip> TravelReturn = new List<Trip>();
+            var listOfTrips = getOffers.GetOffers();
+            List<Offers> TravelReturn = new List<Offers>();
                   
-           listOfTrips.Sort(comparer);                
-           for (int i = 0; i < listOfTrips.Count; i++)
-           {
-                TravelReturn.Add(listOfTrips[i]);
-           }
+            listOfTrips.Sort(comparer);                
+
+
+            for (int i = 0; i < listOfTrips.Count; i++)
+            {
+                 TravelReturn.Add(listOfTrips[i]);
+            }
            
             return TravelReturn;       
           

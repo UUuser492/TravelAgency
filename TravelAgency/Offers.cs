@@ -1,39 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelAgency
 {
-    public class Trip
+    public class Offers
     {
-        public string Type { get; set; }
-        public string Country { get; set; }
-        public int People { get; set; }
-        public Hotel Hotel { get; set; }
+        public int NumberOfPeople { get; set; }
         public DateTime Beginning { get; set; }
         public DateTime Ending { get; set; }
+        public int Price { get; set; }      
+        public Hotel Hotel { get; set; }
+        public TravelTypes TravelTypes { get; set; }
 
-        public Trip(string type, string country, int people, Hotel hotel, DateTime begin, DateTime end)
+        public Offers(int number , DateTime beginning , DateTime ending , int price , Hotel hotel , TravelTypes travelTypes)
         {
-            Type = type;
-            Country = country;
-            People = people;
+            NumberOfPeople = number;
+            Beginning = beginning;
+            Ending = ending;
+            Price = price;
             Hotel = hotel;
-            Beginning = begin;
-            Ending = end;
+            TravelTypes = travelTypes;
         }
-        
     }
 
     /// <summary>
     /// Сортує готелі по ціні від більшого до меншого 
     /// </summary>
-    public class TravelSortsDesc : IComparer<Trip>
+    public class OffersSortsDesc : IComparer<Offers>
     {
-        public int Compare(Trip first, Trip second)
+        public int Compare(Offers first, Offers second)
         {
             if (first.Hotel.Price > second.Hotel.Price)
             {
@@ -50,9 +48,9 @@ namespace TravelAgency
     /// <summary>
     /// Сортує готелі по ціні від меншого до більшого 
     /// </summary>
-    public class TravelSortsIncrease : IComparer<Trip>
+    public class OffersSortsIncrease : IComparer<Offers>
     {
-        public int Compare(Trip first, Trip second)
+        public int Compare(Offers first, Offers second)
         {
             if (first.Hotel.Price > second.Hotel.Price)
             {
@@ -65,6 +63,5 @@ namespace TravelAgency
             return 0;
         }
     }
-
 
 }

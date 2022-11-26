@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TravelAgency
 {
-    public interface IGetTravelTypes
+    public interface IGetOffers
     {
-        public List<string> GetTravelTypes();
+        public List<Offers> GetOffers();
     }
 }
