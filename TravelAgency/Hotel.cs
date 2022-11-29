@@ -11,9 +11,9 @@ namespace TravelAgency
         public int Price { get; set; }
         public string HotelCategory { get; set; }
         public string Name { get; set; }      
-        public Countries Countries { get; set; }
+        public Countrie Countries { get; set; }
 
-        public Hotel(int price, string hotel_Category, string name , Countries countries)
+        public Hotel(int price, string hotel_Category, string name , Countrie countries)
         {
             Price = price;
             Name = name;

@@ -10,9 +10,9 @@ namespace TravelAgency
 {
     public class TravelAgency
     {      
-        public IGetOffers getOffers;
+        public IGetOffer getOffers;
 
-        public TravelAgency(IGetOffers getOffers)
+        public TravelAgency(IGetOffer getOffers)
         {           
             this.getOffers = getOffers;
         }
@@ -77,11 +77,11 @@ namespace TravelAgency
         /// Повертає список всіх подорожей
         /// </summary>
         /// <returns></returns>
-        public List<Offers> FindATravel(string countriesName , string travelTypes ,
+        public List<Offer> FindATravel(string countriesName , string travelTypes ,
              string hotelCategory , DateTime start , DateTime end , 
-            int maxPrice = 1500 , int minPrice = 100, int numberOfPeople = 1 , IComparer<Offers> comparer = null)
+            int maxPrice = 1500 , int minPrice = 100, int numberOfPeople = 1 , IComparer<Offer> comparer = null)
         {
-            var listOfOffers = new List<Offers>();
+            var listOfOffers = new List<Offer>();
             if (comparer == null)
             {
                 listOfOffers = Sort(new OffersSortsDesc());
@@ -91,7 +91,7 @@ namespace TravelAgency
                 listOfOffers = Sort(comparer);
             }
             
-            var returnedListOfOffers = new List<Offers>();
+            var returnedListOfOffers = new List<Offer>();
 
             if (listOfOffers == null || listOfOffers.Count == 0)
             {
@@ -99,32 +99,25 @@ namespace TravelAgency
             }
             else
             {
-               
+                var query = listOfOffers.Select(o => o).Where(
+                    x => x.Hotel.Countries.Name == countriesName &&
+                    x.TravelTypes.Types == travelTypes &&
+                    x.Hotel.HotelCategory == hotelCategory &&
+                    x.Beginning == start &&
+                    x.Ending == end &&
+                    x.Price >= minPrice && x.Price <= maxPrice);
 
-                for (int i = 0; i < listOfOffers.Count; i++)
-                {
-                    if (listOfOffers[i].Hotel.Countries.Name == countriesName && listOfOffers[i].TravelTypes.Types == travelTypes
-                        && listOfOffers[i].Hotel.HotelCategory == hotelCategory && listOfOffers[i].Beginning == start
-                        && listOfOffers[i].Ending == end && listOfOffers[i].Price >= minPrice && listOfOffers[i].Price <= maxPrice)
-                    {
-                        returnedListOfOffers.Add(listOfOffers[i]);
-                    }
-
-                }
-
-                return returnedListOfOffers;
+                return query.ToList();
 
 
             }
 
-            
-
         }
 
-        private List<Offers> Sort(IComparer<Offers> comparer)
+        private List<Offer> Sort(IComparer<Offer> comparer)
         {
             var listOfTrips = getOffers.GetOffers();
-            List<Offers> TravelReturn = new List<Offers>();
+            List<Offer> TravelReturn = new List<Offer>();
                   
             listOfTrips.Sort(comparer);                
 

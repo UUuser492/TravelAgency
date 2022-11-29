@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace TravelAgency
 {
-    public class TravelTypes
+    public class Countrie
     {
-
         public int Id { get; set; }
-        public string Types { get; set; }
+        public string Name { get; set; }
 
-        public TravelTypes(int id , string type)
+        public Countrie(int id , string name)
         {
             Id = id;
-            Types = type;
+            Name = name;
         }
-
-
     }
 }

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace TravelAgency
 {
-    public class Offers
+    public class Offer
     {
         public int NumberOfPeople { get; set; }
         public DateTime Beginning { get; set; }
         public DateTime Ending { get; set; }
         public int Price { get; set; }      
         public Hotel Hotel { get; set; }
-        public TravelTypes TravelTypes { get; set; }
+        public TravelType TravelTypes { get; set; }
 
-        public Offers(int number , DateTime beginning , DateTime ending , int price , Hotel hotel , TravelTypes travelTypes)
+        public Offer(int number , DateTime beginning , DateTime ending , int price , Hotel hotel , TravelType travelTypes)
         {
             NumberOfPeople = number;
             Beginning = beginning;
@@ -29,9 +29,9 @@ namespace TravelAgency
     /// <summary>
     /// Сортує готелі по ціні від більшого до меншого 
     /// </summary>
-    public class OffersSortsDesc : IComparer<Offers>
+    public class OffersSortsDesc : IComparer<Offer>
     {
-        public int Compare(Offers first, Offers second)
+        public int Compare(Offer first, Offer second)
         {
             if (first.Hotel.Price > second.Hotel.Price)
             {
@@ -48,9 +48,9 @@ namespace TravelAgency
     /// <summary>
     /// Сортує готелі по ціні від меншого до більшого 
     /// </summary>
-    public class OffersSortsIncrease : IComparer<Offers>
+    public class OffersSortsIncrease : IComparer<Offer>
     {
-        public int Compare(Offers first, Offers second)
+        public int Compare(Offer first, Offer second)
         {
             if (first.Hotel.Price > second.Hotel.Price)
             {
