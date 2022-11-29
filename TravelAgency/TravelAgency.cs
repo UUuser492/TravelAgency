@@ -32,17 +32,15 @@ namespace TravelAgency
             }
             else
             {
-                for (int i = 0; i < listOfOffers.Count; i++)
-                {
 
-                    if (!listOfCountries.Contains(listOfOffers[i].Hotel.Countries.Name))
-                    {
-                        listOfCountries.Add(listOfOffers[i].Hotel.Countries.Name);
-                    }
+                var temp = from emp in listOfOffers
+                                   .GroupBy(x => x.Hotel.Countries.Name)
+                                   .Select(y=>y.First())
+                                   select emp.Hotel.Countries.Name;
 
-                }
-                return listOfCountries;
-            }            
+                listOfCountries = temp.ToList();
+            }
+            return listOfCountries;
         }
 
         /// <summary>
@@ -60,17 +58,14 @@ namespace TravelAgency
             }
             else
             {
-                for (int i = 0; i < listOfOffers.Count; i++)
-                {                    
+                var temp = from emp in listOfOffers
+                                   .GroupBy(x => x.TravelTypes.Types)
+                                   .Select(y => y.First())
+                                   select emp.TravelTypes.Types.ToString();
 
-                    if (!listOfTravelTypes.Contains(listOfOffers[i].TravelTypes.Types))
-                    {
-                        listOfTravelTypes.Add(listOfOffers[i].TravelTypes.Types);
-                    }
-
-                }
-                return listOfTravelTypes;
+                listOfTravelTypes = temp.ToList();
             }
+            return listOfTravelTypes;
         }
 
         /// <summary>
@@ -108,8 +103,6 @@ namespace TravelAgency
                     x.Price >= minPrice && x.Price <= maxPrice);
 
                 return query.ToList();
-
-
             }
 
         }
@@ -119,19 +112,13 @@ namespace TravelAgency
             var listOfTrips = getOffers.GetOffers();
             List<Offer> TravelReturn = new List<Offer>();
                   
-            listOfTrips.Sort(comparer);                
+            listOfTrips.Sort(comparer);
 
+            var query = listOfTrips.Select(o => o);
 
-            for (int i = 0; i < listOfTrips.Count; i++)
-            {
-                 TravelReturn.Add(listOfTrips[i]);
-            }
-           
-            return TravelReturn;       
+            return query.ToList();       
           
         }
-
-
 
     }
 }

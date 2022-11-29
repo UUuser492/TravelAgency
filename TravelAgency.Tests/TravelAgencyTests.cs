@@ -18,12 +18,16 @@ namespace TravelAgency.Tests
                 new Offer(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countrie(2,"Germany")), new TravelType(2 , "Extrem")),
                 new Offer(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countrie(2,"Germany")), new TravelType(2 , "Extrem")),
                 new Offer(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countrie(2,"Uk")), new TravelType(2 , "Extrem")),
+                new Offer(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countrie(2,"Ukraine")), new TravelType(2 , "Extrem")),
+                new Offer(5, new DateTime(2022,1,1) , new DateTime(2022,1,15) , 1520 , new Hotel(1500 , "qwerty" , "Plaza" , new Countrie(2,"Italia")), new TravelType(2 , "Extrem")),
             };
 
             List<string> expected = new List<string>
             {
                   "Germany",
-                  "Uk",                 
+                  "Uk",
+                  "Ukraine",
+                  "Italia"
             };
 
             var mockOffers = new Mock<IGetOffer>();
