@@ -8,22 +8,23 @@ namespace TravelAgency
 {
     public class Offer
     {
+        public int Id { get; set; }
         public int NumberOfPeople { get; set; }
         public DateTime Beginning { get; set; }
         public DateTime Ending { get; set; }
         public int Price { get; set; }      
-        public Hotel Hotel { get; set; }
-        public TravelType TravelTypes { get; set; }
+        public virtual Hotel Hotel { get; set; }
+        public virtual TravelType TravelTypes { get; set; }
 
-        public Offer(int number , DateTime beginning , DateTime ending , int price , Hotel hotel , TravelType travelTypes)
-        {
-            NumberOfPeople = number;
-            Beginning = beginning;
-            Ending = ending;
-            Price = price;
-            Hotel = hotel;
-            TravelTypes = travelTypes;
-        }
+        //public Offer(int number, DateTime beginning, DateTime ending, int price, Hotel hotel, TravelType travelTypes)
+        //{
+        //    NumberOfPeople = number;
+        //    Beginning = beginning;
+        //    Ending = ending;
+        //    Price = price;
+        //    Hotel = hotel;
+        //    TravelTypes = travelTypes;
+        //}
     }
 
     /// <summary>

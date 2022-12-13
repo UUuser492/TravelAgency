@@ -12,11 +12,11 @@ namespace TravelAgency
         public int Id { get; set; }
         public string Types { get; set; }
 
-        public TravelType(int id , string type)
-        {
-            Id = id;
-            Types = type;
-        }
+        //public TravelType(int id, string type)
+        //{
+        //    Id = id;
+        //    Types = type;
+        //}
 
 
     }
