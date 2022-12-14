@@ -19,6 +19,7 @@ namespace Test
                 .Include(c => c.Hotel.Countries).ToList();
 
             return listOfOffers;
+          
         }
     }
 }

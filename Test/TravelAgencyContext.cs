@@ -19,7 +19,7 @@ namespace TravelAgencyApp
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           // optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
+            // optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
             optionsBuilder.UseSqlServer("Server=DESKTOP-1SJSHK2\\MSSQLSERVER_2;Database=TravelAgency;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true");
         }
 
