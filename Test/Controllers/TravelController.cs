@@ -11,7 +11,9 @@ namespace TravelAgencyApi.Controllers
     {
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetCountries()
+        public ActionResult<IEnumerable<string>> GetTravel(string countriesName, string travelTypes,
+             string hotelCategory, DateTime start, DateTime end,
+            int maxPrice = 1500, int minPrice = 100, int numberOfPeople = 1)
         {
 
             using (TravelAgencyContext db = new TravelAgencyContext())
@@ -24,17 +26,16 @@ namespace TravelAgencyApi.Controllers
                 }
                 else
                 {
-                    return Ok(travelAgency.FindATravel("USA", "Sport", "4", new DateTime(2020, 08, 15), new DateTime(2020, 08, 18), 30000, 100, 4));
+                    return Ok(travelAgency.FindATravel(countriesName, travelTypes, hotelCategory, start, end, maxPrice, minPrice, numberOfPeople));
                 }
             }
 
-
-
-
-
-
-
         }
+
+
 
     }
 }
+
+
+

@@ -12,7 +12,7 @@ namespace TravelAgencyApi.Controllers
        
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetCountries()
+        public ActionResult<IEnumerable<string>> GetTravelType()
         {
 
             using (TravelAgencyContext db = new TravelAgencyContext())
